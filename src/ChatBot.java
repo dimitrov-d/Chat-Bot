@@ -8,9 +8,16 @@ import javafx.stage.Stage;
 
 public class ChatBot extends Application
 {
+	// You may get your own API key on this link:
+	// https://rapidapi.com/Acobot/api/brainshop-ai
+
+	static String API = "8754a32491mshf42558e890e4c7fp1a94abjsn6c1f0bc82daf";
+	static String KEY = "sX5A2PcYZbsN5EY6";
+
 	static TextArea chat;
 	static TextArea input;
 	static Button sendButton;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
@@ -24,12 +31,11 @@ public class ChatBot extends Application
 		primaryStage.show();
 	}
 
-
 	public static void main(String[] args)
 	{
 		launch(args);
 	}
-	
+
 	public static void initializeElements()
 	{
 		chat = new TextArea();

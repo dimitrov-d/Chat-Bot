@@ -1,8 +1,15 @@
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -20,6 +27,14 @@ public class ChatBot extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
+		if (netIsAvailable())
+			showStartScreen(primaryStage);
+		else
+			showNoConnectionWarning();
+	}
+
+	public static void showStartScreen(Stage primaryStage)
+	{
 		initializeElements();
 		GridPane gridPane = JavaFXHelper.createGridPane();
 		JavaFXHelper.addItems(gridPane);
@@ -33,6 +48,32 @@ public class ChatBot extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
+	}
+
+	private static boolean netIsAvailable()
+	{
+		try
+		{
+			// Custom URL for testing
+			final URLConnection connection = new URL("http://www.google.com").openConnection();
+			connection.connect();
+			connection.getInputStream().close();
+			return true;
+		}
+		catch (MalformedURLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch (IOException e)
+		{
+			return false;
+		}
+	}
+	
+	private static void showNoConnectionWarning()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "Please connect to the internet and try again", ButtonType.OK);
+		alert.showAndWait();
 	}
 
 	public static void initializeElements()

@@ -33,7 +33,7 @@ public abstract class EventHandlers
 		if (!message.trim().equals(""))
 		{
 			ChatBot.input.setText(message.replace("\n", "").replace("\r", ""));
-			ChatBot.chat.setText(ChatBot.chat.getText() + "\nYou: " + ChatBot.input.getText());
+			ChatBot.chat.appendText("\nYou: " + ChatBot.input.getText());
 			getAPIreply();
 		}
 	}
@@ -54,7 +54,7 @@ public abstract class EventHandlers
 			String data = response.body().string();
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
-			ChatBot.chat.setText(ChatBot.chat.getText() + "\nBot: " + jsonObject.get("cnt").toString());
+			ChatBot.chat.appendText("\nBot: " + jsonObject.get("cnt").toString());
 		}
 		catch (IOException | ParseException e)
 		{

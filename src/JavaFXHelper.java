@@ -33,6 +33,7 @@ public abstract class JavaFXHelper
 		input.setOnKeyPressed(EventHandlers.onEnterPressed());
 		gridPane.add(input, 1, 1);
 		GridPane.setMargin(input, new Insets(20, 50, 0, 15));
+
 		Button sendButton = ChatBot.sendButton;
 		sendButton.setPrefHeight(63);
 		sendButton.setPrefWidth(100);
@@ -48,5 +49,4 @@ public abstract class JavaFXHelper
 		gridPane.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
 		return gridPane;
 	}
-
 }

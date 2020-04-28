@@ -10,7 +10,6 @@ public class ChatBot extends Application
 {
 	// You may get your own API key on this link:
 	// https://rapidapi.com/Acobot/api/brainshop-ai
-
 	static String API = "8754a32491mshf42558e890e4c7fp1a94abjsn6c1f0bc82daf";
 	static String KEY = "sX5A2PcYZbsN5EY6";
 

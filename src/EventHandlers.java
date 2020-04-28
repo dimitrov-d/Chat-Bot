@@ -1,9 +1,7 @@
 import java.io.IOException;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -16,32 +14,28 @@ public abstract class EventHandlers
 {
 	public static EventHandler<ActionEvent> onMessageSend()
 	{
-		return event ->
-		{
-			String message = ChatBot.input.getText();
-			if (!message.trim().equals(""))
-			{
-				ChatBot.input.setText(message.replace("\n", "").replace("\r", ""));
-				ChatBot.chat.setText(ChatBot.chat.getText() + "\nYou: " + ChatBot.input.getText());
-
-				getAPIreply();
-			}
-		};
+		return event -> sendMessage();
 	}
 
 	public static EventHandler<KeyEvent> onEnterPressed()
 	{
 		return event ->
 		{
-			String message = ChatBot.input.getText();
-			if (event.getCode() == KeyCode.ENTER && !message.trim().equals(""))
-			{
-				ChatBot.input.setText(message.replace("\n", ""));
-				ChatBot.chat.setText(ChatBot.chat.getText() + "\nYou: " + ChatBot.input.getText());
-
-				getAPIreply();
-			}
+			if (event.getCode() == KeyCode.ENTER)
+				sendMessage();
 		};
+	}
+
+	private static void sendMessage()
+	{
+		String message = ChatBot.input.getText();
+
+		if (!message.trim().equals(""))
+		{
+			ChatBot.input.setText(message.replace("\n", "").replace("\r", ""));
+			ChatBot.chat.setText(ChatBot.chat.getText() + "\nYou: " + ChatBot.input.getText());
+			getAPIreply();
+		}
 	}
 
 	private static void getAPIreply()
@@ -60,7 +54,7 @@ public abstract class EventHandlers
 			String data = response.body().string();
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
-			ChatBot.chat.setText(ChatBot.chat.getText().toString() + "\nBot: " + jsonObject.get("cnt").toString());
+			ChatBot.chat.setText(ChatBot.chat.getText() + "\nBot: " + jsonObject.get("cnt").toString());
 		}
 		catch (IOException | ParseException e)
 		{
